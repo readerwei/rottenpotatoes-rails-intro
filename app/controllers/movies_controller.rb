@@ -13,7 +13,13 @@ class MoviesController < ApplicationController
   def index
     #@movies = Movie.find(:all, :order => (params[:sort_by]))
     @movies = Movie.order(params[:sort_by]).all
+    if (params[:ratings])
+      @movies = Movie.where(:rating => params[:ratings].keys).order(params[:sort_by]).all
+    end
     @sort_col = params[:sort_by]
+    @all_ratings = ['G','PG','PG-13','R']
+    
+    #debugger
   end
 
   def new
